@@ -1,29 +1,38 @@
-#
-#Banking simulator. Write a code in python that simulates the banking system. 
-#The program should:
-# - be able to create new banks
-# - store client information in banks
-# - allow for cash input and withdrawal
-# - allow for money transfer from client to client
-#If you can think of any other features, you can add them.
-#This code shoud be runnable with 'python task.py'.
-#You don't need to use user input, just show me in the script that the structure of your code works.
-#If you have spare time you can implement: Command Line Interface, some kind of data storage, or even multiprocessing.
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#Your program must be runnable with command "python task.py".
-#Show some usecases of your library in the code (print some things)
-#
-#When you are done upload this code to your github repository. 
-#
-#Delete these comments before commit!
-#Good luck.
 
-step1
-sfsdf
+class Bank:
+  def __init__(self, name):
+    self.name = name
+    self.clients = []
+  
+  def add_client(self, client):
+    self.clients.append(client)
+
+class Client:
+  def __init__(self, name, money):
+    self.name = name
+    self.money = money
+
+  def __str__(self):
+    return '{} has {} money.'.format(self.name, self.money)
+
+class Transfer:
+  def __init__(self, name):
+    self.name = name
+
+  def money_transfer(self, money, client):
+    if self.name == 'income':
+      client.money += money
+    if self.name == 'outcome':
+      client.money -= money
+
+if __name__== "__main__":
+  bank = Bank('first_bank')
+  print(bank.name)
+  client = Client('Jane', 100)
+  print(client.name)
+  print(client.money)
+  bank.add_client(client)
+  print(bank.clients[0].name)
+  transfer = Transfer('income')
+  transfer.money_transfer(100, client)
+  print(client)
