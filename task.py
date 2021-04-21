@@ -14,19 +14,32 @@ class Bank:
         return 'Bank name: {}, Funds: {}, Number of clients: {}'.format(
             self.name, self.funds, len(self.accounts))
 
-class _Account:
+@dataclass
+class _AccountConst():
+  client: str
+  bank: str
+  credit: int
+
+class _Account(_AccountConst):
     def __init__(self, client, bank, funds):
-        self.client = client.name
-        self.bank = bank.name
-        self.funds = funds
-        self.credit = 0
+        _AccountConst.__init__(self, client, bank.name, credit=0)
         bank.accounts.append(self)
+        self.funds = funds
         client.funds -= funds
+
+    @property
+    def funds(self):
+      return self._funds
+
+    @funds.setter
+    def funds(self, funds):
+      if funds < 0:
+        raise ValueError('Funds have to be positive int')
+      self._funds = funds
 
     def __str__(self):
         return 'Name: {}, Bank: {}, Funds: {}, Credit: {}'.format(
             self.client, self.bank, self.funds, self.credit)
-
 
 class Client:
     def __init__(self, name, funds):
